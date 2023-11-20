@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sunset & Sunrise Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Sunset & Sunrise Dashboard</h1>
+    <div class="search-container">
+      <input type="text" id="searchInput" placeholder="Enter Location">
+      <button onclick="searchLocation()">Search</button>
+    </div>
+    <div class="result-container">
+      <h2>Location: <span id="locationName"></span></h2>
+      <p>Sunrise Time: <span id="sunriseTime"></span></p>
+      <p>Sunset Time: <span id="sunsetTime"></span></p>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
