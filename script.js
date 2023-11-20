@@ -6,7 +6,7 @@ function searchLocation() {
   }
 
   const accessKey = '2a75792aaed5c771767ef5ee42f94c3d'; // Replace with your Weatherstack access key
-  const apiUrl = `http://api.weatherstack.com/current?access_key=${accessKey}&query=${searchInput}`;
+  const apiUrl = `https://api.weatherstack.com/current?access_key=${accessKey}&query=${searchInput}`;
 
   fetch(apiUrl)
     .then(response => response.json())
