@@ -5,7 +5,7 @@ function searchLocation() {
     return;
   }
 
-  fetch(`https://api.openweathermap.org/data/2.5/weather?q=${searchInput}&appid=YOUR_OPENWEATHER_API_KEY`)
+  fetch(`https://api.openweathermap.org/data/2.5/weather?q=${searchInput}&appid=04fd905b6d5e293c8bb76f277a85e36f`)
     .then(response => response.json())
     .then(data => {
       const locationName = data.name;
