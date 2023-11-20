@@ -1,26 +1,21 @@
-// script.js
+/ script.js
 async function getCoordinates(location) {
-    const apiKey = '2a75792aaed5c771767ef5ee42f94c3d';
-    const geocodeUrl = `https://geocode.maps.com/?location=${location}&key=${apiKey}`;
-
+  
+    const geocodeUrl = `https://geocode.maps.co/search?q=${location}`;
+    
     try {
-        const response = await fetch(geocodeUrl);
-        const data = await response.json();
-
-        if (data.results && data.results.length > 0) {
-            const { lat, lng } = data.results[0].geometry;
-            return { lat, lng };
-        } else {
-            return null; // Location not found
-        }
+        let response = await fetch(geocodeUrl);
+        let data = await response.json();
+        let c = data[0];
+        return { lat: c['lat'], lng: c['lon'] };
     } catch (error) {
         console.error('Error fetching coordinates:', error);
         return null;
     }
 }
 
-async function getSunriseSunset(lat, lng) {
-    const sunriseSunsetUrl = `https://api.sunrise-sunset.org/json?lat=${lat}&lng=${lng}&formatted=0`;
+async function getSunriseSunsettoday(lat, lng) {
+    const sunriseSunsetUrl = `https://api.sunrise-sunset.org/json?lat=${lat}&lng=${lng}&date=today`;
 
     try {
         const response = await fetch(sunriseSunsetUrl);
@@ -40,7 +35,7 @@ async function fetchSunriseSunsetInfo() {
     const coordinates = await getCoordinates(userLocation);
     if (coordinates) {
         const { lat, lng } = coordinates;
-        const sunriseSunset = await getSunriseSunset(lat, lng);
+        const sunriseSunset = await getSunriseSunsettoday(lat, lng);
 
         if (sunriseSunset) {
             displaySunriseSunset(userLocation, sunriseSunset);
