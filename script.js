@@ -1,30 +1,59 @@
-function searchLocation() {
-  const searchInput = document.getElementById('searchInput').value;
-  if (searchInput.trim() === '') {
-    alert('Please enter a location.');
-    return;
-  }
+// Function to fetch coordinates from the geocode API
+async function getCoordinates(location) {
+    const apiKey = '2a75792aaed5c771767ef5ee42f94c3d';
+    const geocodeUrl = `https://geocode.maps.co/?location=${location}&key=${apiKey}`;
 
-  const accessKey = '2a75792aaed5c771767ef5ee42f94c3d'; // Replace with your Weatherstack access key
-  const apiUrl = `https://api.weatherstack.com/current?access_key=${accessKey}&query=${searchInput}`;
+    try {
+        const response = await fetch(geocodeUrl);
+        const data = await response.json();
 
-  fetch(apiUrl)
-    .then(response => response.json())
-    .then(data => {
-      if (data.error) {
-        throw new Error(data.error.info || 'Unknown error');
-      }
-
-      const locationName = data.location.name;
-      const sunriseTime = data.current.observation_time.split(' ')[1]; // Parsing sunrise time from observation_time
-      const sunsetTime = data.current.sunset; // Adjust this according to Weatherstack's response
-
-      document.getElementById('locationName').textContent = locationName;
-      document.getElementById('sunriseTime').textContent = sunriseTime;
-      document.getElementById('sunsetTime').textContent = sunsetTime;
-    })
-    .catch(error => {
-      console.error('Error fetching data:', error);
-      alert(`Error fetching data: ${error.message}. Please try again.`);
-    });
+        if (data.results && data.results.length > 0) {
+            const { lat, lng } = data.results[0].geometry;
+            return { lat, lng };
+        } else {
+            return null; // Location not found
+        }
+    } catch (error) {
+        console.error('Error fetching coordinates:', error);
+        return null; // Return null to signify an error
+    }
 }
+
+// Function to fetch sunrise and sunset using coordinates from Sunrise-Sunset.org API
+async function getSunriseSunset(lat, lng) {
+    const sunriseSunsetUrl = `https://api.sunrise-sunset.org/json?lat=${lat}&lng=${lng}&formatted=0`;
+    
+    try {
+        const response = await fetch(sunriseSunsetUrl);
+        const data = await response.json();
+        
+        // Parse the response and extract sunrise and sunset times
+        const { sunrise, sunset } = data.results;
+        return { sunrise, sunset };
+    } catch (error) {
+        console.error('Error fetching sunrise/sunset:', error);
+        return null; // Return null to signify an error
+    }
+}
+
+// Example usage
+async function fetchSunriseSunsetInfo() {
+    const userLocation = prompt("Enter a named location:");
+    
+    const coordinates = await getCoordinates(userLocation);
+    if (coordinates) {
+        const { lat, lng } = coordinates;
+        const sunriseSunset = await getSunriseSunset(lat, lng);
+        
+        if (sunriseSunset) {
+            console.log(`Sunrise: ${sunriseSunset.sunrise}\nSunset: ${sunriseSunset.sunset}`);
+        } else {
+            console.log('Error fetching sunrise/sunset information.');
+        }
+    } else {
+        console.log('Location not found or an error occurred.');
+    }
+}
+
+// Call the function to initiate the process
+fetchSunriseSunsetInfo();
