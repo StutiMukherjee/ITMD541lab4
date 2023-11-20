@@ -5,15 +5,19 @@ function searchLocation() {
     return;
   }
 
-  fetch(`https://api.openweathermap.org/data/2.5/weather?q=${searchInput}&appid=04fd905b6d5e293c8bb76f277a85e36f`)
+  const accessKey = '2a75792aaed5c771767ef5ee42f94c3d'; // Replace with your Weatherstack access key
+  const apiUrl = `http://api.weatherstack.com/current?access_key=${accessKey}&query=${searchInput}`;
+
+  fetch(apiUrl)
     .then(response => response.json())
     .then(data => {
-      const locationName = data.name;
-      const sunriseTimestamp = data.sys.sunrise;
-      const sunsetTimestamp = data.sys.sunset;
+      if (data.error) {
+        throw new Error(data.error.info || 'Unknown error');
+      }
 
-      const sunriseTime = new Date(sunriseTimestamp * 1000).toLocaleTimeString();
-      const sunsetTime = new Date(sunsetTimestamp * 1000).toLocaleTimeString();
+      const locationName = data.location.name;
+      const sunriseTime = data.current.observation_time.split(' ')[1]; // Parsing sunrise time from observation_time
+      const sunsetTime = data.current.sunset; // Adjust this according to Weatherstack's response
 
       document.getElementById('locationName').textContent = locationName;
       document.getElementById('sunriseTime').textContent = sunriseTime;
@@ -21,6 +25,6 @@ function searchLocation() {
     })
     .catch(error => {
       console.error('Error fetching data:', error);
-      alert('Error fetching data. Please try again.');
+      alert(`Error fetching data: ${error.message}. Please try again.`);
     });
 }
