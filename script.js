@@ -1,5 +1,4 @@
 //script.js
-
 async function getCoordinates(location) {
 
     const geocodeUrl = `https://geocode.maps.co/search?q=${location}`;
@@ -54,7 +53,7 @@ async function fetchSunriseSunsetInfo() {
     }
 }
 
-function displaySunriseSunsetToday(locationtoday, sunriseSunset) {
+function displaySunriseSunsetToday(location, sunriseSunset) {
     document.getElementById('locationNameToday').textContent = location;
     document.getElementById('sunriseTimeToday').textContent = sunriseSunset.sunrise;
     document.getElementById('sunsetTimeToday').textContent = sunriseSunset.sunset;
@@ -66,7 +65,7 @@ function displaySunriseSunsetToday(locationtoday, sunriseSunset) {
 
 }
 
-function displaySunriseSunsetTomorrow(locationtomorrow, sunriseSunset) {
+function displaySunriseSunsetTomorrow(location, sunriseSunset) {
     ///// create new html code for tomorrow and change fields here
     document.getElementById('locationNameTomorrow').textContent = location;
     document.getElementById('sunriseTimeTomorrow').textContent = sunriseSunset.sunrise;
