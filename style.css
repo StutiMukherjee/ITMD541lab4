@@ -16,7 +16,7 @@ body {
     background-repeat: no-repeat;
     background-attachment: fixed;
     /* Set default background image */
-    background-image: url('day.jpg');
+    background-image: url('day.png');
 }
 
 .container {
