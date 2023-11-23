@@ -79,7 +79,21 @@ function displaySunriseSunsetTomorrow(location, sunriseSunset) {
 }
 
 function displayError() {
-    document.getElementById('locationName').textContent = 'Location not found';
-    document.getElementById('sunriseTime').textContent = 'N/A';
-    document.getElementById('sunsetTime').textContent = 'N/A';
+    document.getElementById('locationNameToday').textContent = 'Location not found';
+    document.getElementById('sunriseTimeToday').textContent = 'N/A';
+    document.getElementById('sunsetTimeToday').textContent = 'N/A';
+    document.getElementById('dawnTimeToday').textContent = 'N/A';
+    document.getElementById('duskTimeToday').textContent = 'N/A';
+    document.getElementById('dayLengthToday').textContent = 'N/A';
+    document.getElementById('solarNoonTimeToday').textContent = 'N/A';
+    document.getElementById('timezoneToday').textContent = 'N/A';
+
+    document.getElementById('locationNameTomorrow').textContent = 'Location not found';
+    document.getElementById('sunriseTimeTomorrow').textContent = 'N/A';
+    document.getElementById('sunsetTimeTomorrow').textContent = 'N/A';
+    document.getElementById('dawnTimeTomorrow').textContent = 'N/A';
+    document.getElementById('duskTimeTomorrow').textContent = 'N/A';
+    document.getElementById('dayLengthTomorrow').textContent = 'N/A';
+    document.getElementById('solarNoonTimeTomorrow').textContent = 'N/A';
+    document.getElementById('timezoneTomorrow').textContent = 'N/A';
 }
