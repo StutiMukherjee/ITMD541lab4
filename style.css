@@ -1,4 +1,4 @@
-/* styles.css */
+/* style.css */
 
 /* Reset default margin and padding */
 body {
@@ -6,34 +6,29 @@ body {
   padding: 0;
 }
 
-/* Background styling */
+/* Apply background image to the body */
 body {
   font-family: Arial, sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  /* Set background image */
-  background-image: url('C:\Users\stuti\Downloads\sunrise.png');
-  /* Center and cover the background */
-  background-size: cover;
-  background-position: center;
-  /* Additional background styles */
-  background-repeat: no-repeat;
-  /* Fallback background color */
-  background-color: #f3f3f3;
 }
 
-/* Container styling */
+.background-container {
+  /* Specify background image URL and other properties */
+  background-image: url('C:\Users\stuti\Downloads\sunrise.png');
+  /* Additional background properties if needed */
+  background-size: cover;
+  /* Other styles */
+}
+
 .container {
   text-align: center;
-  background-color: rgba(255, 255, 255, 0.9); /* Use rgba for a semi-transparent background */
+  margin: 20px auto;
+  max-width: 600px;
   padding: 20px;
+  background-color: rgba(255, 255, 255, 0.9);
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Search container styling */
 .search-container {
   margin-bottom: 20px;
 }
@@ -57,13 +52,12 @@ button:hover {
   background-color: #0056b3;
 }
 
-/* Result container styling */
-.result-container {
+.result-container-today,
+.result-container-tomorrow {
   border-top: 1px solid #ccc;
   padding-top: 20px;
 }
 
-/* Bold text in spans */
 span {
   font-weight: bold;
 }
