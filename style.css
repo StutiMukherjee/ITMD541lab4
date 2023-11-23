@@ -1,7 +1,7 @@
 /* Reset some default styles */
 body, h1, h2, p {
     margin: 50;
-    padding: 50;
+    padding: 0;
 }
 
 /* Basic styling for the page */
