@@ -77,14 +77,16 @@ h1 {
     cursor: pointer;
 }
 
-.result-container {
-    display: flex;
-    justify-content: space-between; /* Aligns elements side by side */
+.result-container-today,
+.result-container-tomorrow {
+    width: 50%; /* Each container takes 50% of the width */
+    box-sizing: border-box; /* Includes padding and border in the width */
+    padding: 10px;
 }
 
-.result-today,
-.result-tomorrow {
-    width: calc(30% - 10px); /* Adjust width to fit side by side with some space in between */
+.dataContainer {
+    display: flex;
+    justify-content: space-between; /* Places containers side by side */
 }
 
 /* Specific styles for today and tomorrow sections can be added here */
