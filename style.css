@@ -16,7 +16,7 @@ body {
     background-repeat: no-repeat;
     background-attachment: fixed;
     /* Set default background image for both desktop and mobile */
-    background-image: url('seabeach.png');
+    background-image: url('day.png');
 }
 
 .container {
@@ -57,7 +57,7 @@ h1 {
 @media (max-width: 768px) {
     body {
         /* Set background image for mobile */
-        background-image: url('seabeach.png');
+        background-image: url('day.png');
     }
 
     .result-container {
