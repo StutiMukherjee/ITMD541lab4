@@ -1,63 +1,72 @@
-/* style.css */
+/* Reset some default styles */
+body, h1, h2, p {
+        margin: 0;
+        padding: 0;
+    }
 
-/* Reset default margin and padding */
+    /* Basic styling for the page */
 body {
-  margin: 0;
-  padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    color: #333;
+    font-family: Arial, sans-serif;
+    background-image: url('"C:\Users\stuti\Downloads\photo-1470252649378-9c29740c9fa8.jpg"'); /*  Replace 'background.jpg' with the path to your image */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: #333;
 }
 
-/* Apply background image to the body */
-body {
-  font-family: Arial, sans-serif;
+header {
+    background-color: #007BFF;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
 }
 
-.background-container {
-  /* Specify background image URL and other properties */
-  background-image: url('C:\Users\stuti\Downloads\sunrise.png');
-  /* Additional background properties if needed */
-  background-size: cover;
-  /* Other styles */
+header h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
 }
 
-.container {
-  text-align: center;
-  margin: 20px auto;
-  max-width: 600px;
-  padding: 20px;
-  background-color: rgba(255, 255, 255, 0.9);
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+
+main {
+    max-width: 800px;
+    margin: 20px auto;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
 
-.search-container {
-  margin-bottom: 20px;
+.intro h2 {
+    font-size: 1.8em;
+    margin-bottom: 15px;
+    color: #007BFF;
 }
 
-input[type="text"] {
-  padding: 8px;
-  border-radius: 4px;
-  border: 1px solid #ccc;
+.intro p a {
+    text-decoration: none;
+    color: #007BFF;
+    font-weight: bold;
+        
+    }
+
+.intro p a:hover {
+    text-decoration: underline;
 }
 
-button {
-  padding: 8px 16px;
-  border-radius: 4px;
-  border: none;
-  cursor: pointer;
-  background-color: #007bff;
-  color: #fff;
-}
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #007BFF;
+    color: #fff;
+    position:fixed;
+    bottom: 0;
+    width: 100%;
+    border-radius: 0 0 10px 10px;
 
-button:hover {
-  background-color: #0056b3;
-}
-
-.result-container-today,
-.result-container-tomorrow {
-  border-top: 1px solid #ccc;
-  padding-top: 20px;
-}
-
-span {
-  font-weight: bold;
+   
 }
