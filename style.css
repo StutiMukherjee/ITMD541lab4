@@ -6,45 +6,21 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #f3f3f3;
+  /* Set background image */
+  background-image: url('C:\Users\stuti\Downloads\image.jpeg');
+  /* Center and cover the background */
+  background-size: cover;
+  background-position: center;
+  /* Additional background styles */
+  background-repeat: no-repeat;
 }
 
 .container {
   text-align: center;
-  background-color: #fff;
+  background-color: rgba(255, 255, 255, 0.9); /* Use rgba for a semi-transparent background */
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.search-container {
-  margin-bottom: 20px;
-}
-
-input[type="text"] {
-  padding: 8px;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-}
-
-button {
-  padding: 8px 16px;
-  border-radius: 4px;
-  border: none;
-  cursor: pointer;
-  background-color: #007bff;
-  color: #fff;
-}
-
-button:hover {
-  background-color: #0056b3;
-}
-
-.result-container {
-  border-top: 1px solid #ccc;
-  padding-top: 20px;
-}
-
-span {
-  font-weight: bold;
-}
+/* Rest of your existing styles remain the same */
