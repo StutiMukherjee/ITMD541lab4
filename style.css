@@ -1,6 +1,6 @@
 /* Reset some default styles */
 body, h1, h2, p {
-    margin: 50;
+    margin:  0;
     padding: 0;
 }
 
@@ -84,7 +84,7 @@ h1 {
 
 .result-today,
 .result-tomorrow {
-    width: calc(50% - 10px); /* Adjust width to fit side by side with some space in between */
+    width: calc(30% - 10px); /* Adjust width to fit side by side with some space in between */
 }
 
 /* Specific styles for today and tomorrow sections can be added here */
