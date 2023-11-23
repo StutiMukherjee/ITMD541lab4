@@ -1,20 +1,21 @@
 /* Reset some default styles */
 body, h1, h2, p {
-        margin: 0;
-        padding: 0;
-    }
+    margin: 0;
+    padding: 0;
+}
 
-    /* Basic styling for the page */
+/* Basic styling for the page */
 body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-family: Arial, sans-serif;
     background-color: #f0f0f0;
     color: #333;
-    font-family: Arial, sans-serif;
-    background-image: url('sunrise.png'); /*  Replace 'background.jpg' with the path to your image */
+    background-image: url('seabeach.png'); /* Replace with your image path */
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    color: #333;
 }
 
 header {
@@ -28,8 +29,6 @@ header h1 {
     font-size: 2.5em;
     margin-bottom: 10px;
 }
-
-
 
 main {
     max-width: 800px;
@@ -51,8 +50,7 @@ main {
     text-decoration: none;
     color: #007BFF;
     font-weight: bold;
-        
-    }
+}
 
 .intro p a:hover {
     text-decoration: underline;
@@ -67,6 +65,4 @@ footer {
     bottom: 0;
     width: 100%;
     border-radius: 0 0 10px 10px;
-
-   
 }
