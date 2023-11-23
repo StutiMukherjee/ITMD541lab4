@@ -1,5 +1,4 @@
 /* Reset some default styles */
-
 body, h1, h2, p {
     margin: 0;
     padding: 0;
@@ -13,10 +12,11 @@ body {
     font-family: Arial, sans-serif;
     background-color: #f0f0f0;
     color: #FF1493; /* Change text color to pink */
-    background-image: url('seabeach.png'); /* Replace with your image path */
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
+    /* Set default background image for both desktop and mobile */
+    background-image: url('seabeach.png');
 }
 
 .container {
@@ -39,19 +39,7 @@ h1 {
     margin-bottom: 20px;
 }
 
-.search-container input[type="text"] {
-    padding: 8px;
-    width: 200px;
-}
-
-.search-container button {
-    padding: 8px 15px;
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
+/* Styles for input and button (you can adjust as needed) */
 
 .result-container {
     display: flex;
@@ -64,3 +52,21 @@ h1 {
 }
 
 /* Specific styles for today and tomorrow sections can be added here */
+
+/* Media query for mobile screens */
+@media (max-width: 768px) {
+    body {
+        /* Set background image for mobile */
+        background-image: url('seabeach.png');
+    }
+
+    .result-container {
+        display: block; /* Change to stacked layout for mobile */
+    }
+
+    .result-today,
+    .result-tomorrow {
+        width: 100%; /* Take full width on mobile */
+        margin-bottom: 20px; /* Add space between sections */
+    }
+}
