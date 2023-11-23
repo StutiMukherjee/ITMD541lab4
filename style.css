@@ -1,32 +1,42 @@
+/* Reset some default styles */
 body, h1, h2, p {
-    margin: 0;
-    padding: 0;
-}
+        margin: 0;
+        padding: 0;
+    }
 
-/* Basic styling for the page */
+    /* Basic styling for the page */
 body {
     font-family: Arial, sans-serif;
     background-color: #f0f0f0;
     color: #333;
-    background-image: url('images/BG.JPG');
+    font-family: Arial, sans-serif;
+    background-image: url('sunrise.png'); /*  Replace 'background.jpg' with the path to your image */
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
+    color: #333;
 }
 
 header {
-    background-color: #007BFF; /* Adding background color to header */
+    background-color: #007BFF;
     color: #fff;
     text-align: center;
     padding: 20px;
 }
 
+header h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+
+
 main {
     max-width: 800px;
     margin: 20px auto;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     padding: 20px;
-    background-color: #fff; /* Adding background color to main */
+    background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
@@ -41,7 +51,8 @@ main {
     text-decoration: none;
     color: #007BFF;
     font-weight: bold;
-}
+        
+    }
 
 .intro p a:hover {
     text-decoration: underline;
@@ -50,10 +61,12 @@ main {
 footer {
     text-align: center;
     padding: 10px;
-    background-color: #007BFF; /* Adding background color to footer */
+    background-color: #007BFF;
     color: #fff;
-    position: fixed;
+    position:fixed;
     bottom: 0;
     width: 100%;
     border-radius: 0 0 10px 10px;
+
+   
 }
