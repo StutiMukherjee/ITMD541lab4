@@ -1,7 +1,14 @@
+/* styles.css */
+
+/* Reset default margin and padding */
 body {
-  font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
+}
+
+/* Background styling */
+body {
+  font-family: Arial, sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -13,8 +20,11 @@ body {
   background-position: center;
   /* Additional background styles */
   background-repeat: no-repeat;
+  /* Fallback background color */
+  background-color: #f3f3f3;
 }
 
+/* Container styling */
 .container {
   text-align: center;
   background-color: rgba(255, 255, 255, 0.9); /* Use rgba for a semi-transparent background */
@@ -23,4 +33,37 @@ body {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Rest of your existing styles remain the same */
+/* Search container styling */
+.search-container {
+  margin-bottom: 20px;
+}
+
+input[type="text"] {
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+button {
+  padding: 8px 16px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  background-color: #007bff;
+  color: #fff;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Result container styling */
+.result-container {
+  border-top: 1px solid #ccc;
+  padding-top: 20px;
+}
+
+/* Bold text in spans */
+span {
+  font-weight: bold;
+}
