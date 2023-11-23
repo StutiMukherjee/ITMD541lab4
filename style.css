@@ -12,11 +12,34 @@ body {
     font-family: Arial, sans-serif;
     background-color: #f0f0f0;
     color: #FF1493; /* Change text color to pink */
-    background-image: url('day.png'); /* Replace with your image path */
     background-size: cover;
     background-repeat: no-repeat;
-    background-attachment: fixed;
+    transition: 5s;
     background-position: center;
+
+    animation-name: animation;
+    animation-direction: alternate-reverse;
+    animation-duration: 10s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-play-state: running;
+    animation-timming-function: ease-in-out;
+}
+
+@keyframes animation{
+    0%{
+        background-image: url('new_york.png');
+    }
+    35%{
+        background-image: url('mumbai.png');
+    }
+     75%{
+        background-image: url('London.png');
+    }
+    100%{
+        background-image: url('sydney.png');
+    }
+    
 }
 
 .container {
