@@ -54,7 +54,7 @@ async function fetchSunriseSunsetInfo() {
     }
 }
 
-function displaySunriseSunsetToday(location, sunriseSunset) {
+function displaySunriseSunsetToday(locationtoday, sunriseSunset) {
     document.getElementById('locationNameToday').textContent = location;
     document.getElementById('sunriseTimeToday').textContent = sunriseSunset.sunrise;
     document.getElementById('sunsetTimeToday').textContent = sunriseSunset.sunset;
@@ -66,7 +66,7 @@ function displaySunriseSunsetToday(location, sunriseSunset) {
 
 }
 
-function displaySunriseSunsetTomorrow(location, sunriseSunset) {
+function displaySunriseSunsetTomorrow(locationtomorrow, sunriseSunset) {
     ///// create new html code for tomorrow and change fields here
     document.getElementById('locationNameTomorrow').textContent = location;
     document.getElementById('sunriseTimeTomorrow').textContent = sunriseSunset.sunrise;
