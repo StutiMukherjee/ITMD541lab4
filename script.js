@@ -1,4 +1,5 @@
 //script.js
+
 async function getCoordinates(location) {
 
     const geocodeUrl = `https://geocode.maps.co/search?q=${location}`;
