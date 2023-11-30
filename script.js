@@ -1,128 +1,119 @@
-//script.js
+// Get references to the buttons and input field
+const searchButton = document.getElementById("searchButton");
+const geoButton = document.getElementById("geoButton");
+const searchBar = document.getElementById("searchBar");
 
+// Event listeners for the search and current location buttons
+searchButton.addEventListener("click", async function () {
+  try {
+    const locSearch = searchBar.value;
 
-async function getCoordinates(location) {
-    const geocodeUrl = `https://geocode.maps.co/search?q=${location}`;
-
-    try {
-        let response = await fetch(geocodeUrl);
-        let data = await response.json();
-
-        if (data.length === 0) {
-            throw new Error('Location not found');
-        }
-
-        let c = data[0];
-        return { lat: c['lat'], lng: c['lon'] };
-    } catch (error) {
-        console.error('Error fetching coordinates:', error);
-        return null;
+    if (!locSearch) {
+      throw new Error("Please enter a location");
     }
-}
 
-async function getSunriseSunset(lat, lng, date) {
-    const sunriseSunsetUrl = `https://api.sunrisesunset.io/json?lat=${lat}&lng=${lng}&date=${date}`;
+    const coordinates = await fetchCoordinates(locSearch);
+    displayData(coordinates['lat'], coordinates['lon']);
+  } catch (error) {
+    handleDisplayError(error);
+  }
+});
 
-    try {
-        const response = await fetch(sunriseSunsetUrl);
-        const data = await response.json();
-
-        if (data.status === 'OK') {
-            const { sunrise, sunset, dawn, dusk, day_length, solar_noon, timezone } = data.results;
-            return { sunrise, sunset, dawn, dusk, day_length, solar_noon, timezone };
-        } else {
-            throw new Error('Sunrise/sunset data not available');
-        }
-    } catch (error) {
-        console.error('Error fetching sunrise/sunset:', error);
-        return null;
-    }
-}
-
-async function getCoordinatesFromPosition(position) {
+geoButton.addEventListener("click", async function () {
+  try {
+    const position = await getCurrentPosition();
     const { latitude, longitude } = position.coords;
-    return { lat: latitude, lng: longitude };
+
+    displayData(latitude, longitude);
+  } catch (error) {
+    handleDisplayError(error);
+  }
+});
+
+// Functions for fetching coordinates, sunrise/sunset data, and displaying data
+async function fetchCoordinates(location) {
+  const apiUrl = `https://geocode.maps.co/search?q=${location}`;
+  const response = await fetch(apiUrl);
+
+  if (!response.ok) {
+    throw new Error(`Geocoding HTTP error! Status: ${response.status}`);
+  }
+
+  const data = await response.json();
+
+  if (!data || data.length === 0) {
+    throw new Error('Location not found');
+  }
+
+  return data[0];
 }
 
-async function getCurrentPosition() {
-    return new Promise((resolve, reject) => {
-        navigator.geolocation.getCurrentPosition(resolve, reject);
-    });
+async function fetchData(lat, lon, date) {
+  const apiUrl = `https://api.sunrisesunset.io/json?lat=${lat}&lng=${lon}&date=${date}`;
+  const response = await fetch(apiUrl);
+
+  if (!response.ok) {
+    throw new Error(`Sunrise Sunset API HTTP error! Status: ${response.status}`);
+  }
+
+  return await response.json();
 }
 
-async function fetchSunriseSunsetInfo(location) {
-    try {
-        let coordinates;
+async function displayData(lat, lon) {
+  try {
+    const todayData = await fetchData(lat, lon, 'today');
+    const tomorrowData = await fetchData(lat, lon, 'tomorrow');
 
-        if (location === 'current') {
-            const position = await getCurrentPosition();
-            coordinates = await getCoordinatesFromPosition(position);
-        } else {
-            coordinates = await getCoordinates(location);
-        }
-
-        if (coordinates) {
-            const { lat, lng } = coordinates;
-            const sunriseSunsetToday = await getSunriseSunset(lat, lng, 'today');
-            const sunriseSunsetTomorrow = await getSunriseSunset(lat, lng, 'tomorrow');
-
-            if (sunriseSunsetToday && sunriseSunsetTomorrow) {
-                displaySunriseSunsetToday(location, sunriseSunsetToday);
-                displaySunriseSunsetTomorrow(location, sunriseSunsetTomorrow);
-            } else {
-                displayError();
-            }
-        } else {
-            displayError();
-        }
-    } catch (error) {
-        console.error('Error fetching data:', error);
-        displayError();
-    }
+    updateUI(todayData.results, tomorrowData.results);
+  } catch (error) {
+    handleDisplayError(error);
+  }
 }
 
-async function fetchCurrentLocationInfo() {
-    fetchSunriseSunsetInfo('current');
+function updateUI(todayData, tomorrowData) {
+  const updateElement = (id, value, iconClass) => {
+    const element = document.getElementById(id);
+    element.innerHTML = `<i class="${iconClass}"></i> ${value}`;
+  };
+
+  updateElement('sunriseToday', "Sunrise: " + todayData.sunrise, 'fas fa-sun');
+  updateElement('sunsetToday', "Sunset: " + todayData.sunset, 'fas fa-sun');
+  updateElement('dawnToday', "Dawn: " + todayData.dawn, 'fas fa-arrow-up');
+  updateElement('duskToday', "Dusk: " + todayData.dusk, 'fas fa-arrow-down');
+  updateElement('dayLengthToday', "Day Length: " + todayData.day_length, 'fas fa-clock');
+  updateElement('solarNoonToday', "Solar Noon: " + todayData.solar_noon, 'fas fa-sun');
+
+  updateElement('sunriseTomorrow', "Sunrise: " + tomorrowData.sunrise, 'fas fa-sun');
+  updateElement('sunsetTomorrow', "Sunset: " + tomorrowData.sunset, 'fas fa-sun');
+  updateElement('dawnTomorrow', "Dawn: " + tomorrowData.dawn, 'fas fa-arrow-up');
+  updateElement('duskTomorrow', "Dusk: " + tomorrowData.dusk, 'fas fa-arrow-down');
+  updateElement('dayLengthTomorrow', "Day Length: " + tomorrowData.day_length, 'fas fa-clock');
+  updateElement('solarNoonTomorrow', "Solar Noon: " + tomorrowData.solar_noon, 'fas fa-sun');
+}
+  showElement("todayInfo");
+  showElement("tomorrowInfo");
+  showElement("timezone");
 }
 
-function displaySunriseSunsetToday(location, sunriseSunset) {
-    document.getElementById('locationNameToday').textContent = location;
-    document.getElementById('sunriseTimeToday').textContent = sunriseSunset.sunrise;
-    document.getElementById('sunsetTimeToday').textContent = sunriseSunset.sunset;
-    document.getElementById('dawnTimeToday').textContent = sunriseSunset.dawn;
-    document.getElementById('duskTimeToday').textContent = sunriseSunset.dusk;
-    document.getElementById('dayLengthToday').textContent = sunriseSunset.day_length;
-    document.getElementById('solarNoonTimeToday').textContent = sunriseSunset.solar_noon;
-    document.getElementById('timezoneToday').textContent = sunriseSunset.timezone;
+// Utility functions
+function hideElement(id) {
+  document.getElementById(id).style.display = "none";
 }
 
-function displaySunriseSunsetTomorrow(location, sunriseSunset) {
-    document.getElementById('locationNameTomorrow').textContent = location;
-    document.getElementById('sunriseTimeTomorrow').textContent = sunriseSunset.sunrise;
-    document.getElementById('sunsetTimeTomorrow').textContent = sunriseSunset.sunset;
-    document.getElementById('dawnTimeTomorrow').textContent = sunriseSunset.dawn;
-    document.getElementById('duskTimeTomorrow').textContent = sunriseSunset.dusk;
-    document.getElementById('dayLengthTomorrow').textContent = sunriseSunset.day_length;
-    document.getElementById('solarNoonTimeTomorrow').textContent = sunriseSunset.solar_noon;
-    document.getElementById('timezoneTomorrow').textContent = sunriseSunset.timezone;
+function showElement(id) {
+  document.getElementById(id).style.display = "block";
 }
 
-function displayError() {
-    document.getElementById('locationNameToday').textContent = 'Location not found';
-    document.getElementById('sunriseTimeToday').textContent = 'N/A';
-    document.getElementById('sunsetTimeToday').textContent = 'N/A';
-    document.getElementById('dawnTimeToday').textContent = 'N/A';
-    document.getElementById('duskTimeToday').textContent = 'N/A';
-    document.getElementById('dayLengthToday').textContent = 'N/A';
-    document.getElementById('solarNoonTimeToday').textContent = 'N/A';
-    document.getElementById('timezoneToday').textContent = 'N/A';
+function getCurrentPosition() {
+  return new Promise((resolve, reject) => {
+    navigator.geolocation.getCurrentPosition(resolve, reject);
+  });
+}
 
-    document.getElementById('locationNameTomorrow').textContent = 'Location not found';
-    document.getElementById('sunriseTimeTomorrow').textContent = 'N/A';
-    document.getElementById('sunsetTimeTomorrow').textContent = 'N/A';
-    document.getElementById('dawnTimeTomorrow').textContent = 'N/A';
-    document.getElementById('duskTimeTomorrow').textContent = 'N/A';
-    document.getElementById('dayLengthTomorrow').textContent = 'N/A';
-    document.getElementById('solarNoonTimeTomorrow').textContent = 'N/A';
-    document.getElementById('timezoneTomorrow').textContent = 'N/A';
+function handleDisplayError(error) {
+  console.error('Error:', error.message);
+  hideElement("todayInfo");
+  hideElement("tomorrowInfo");
+  hideElement("timezone");
+  alert('Error: ' + error.message);
 }
