@@ -1,11 +1,15 @@
 //script.js
 async function getCoordinates(location) {
-
     const geocodeUrl = `https://geocode.maps.co/search?q=${location}`;
 
     try {
         let response = await fetch(geocodeUrl);
         let data = await response.json();
+
+        if (data.length === 0) {
+            throw new Error('Location not found');
+        }
+
         let c = data[0];
         return { lat: c['lat'], lng: c['lon'] };
     } catch (error) {
@@ -15,40 +19,56 @@ async function getCoordinates(location) {
 }
 
 async function getSunriseSunset(lat, lng, date) {
-    const sunriseSunsetUrl = 'https://api.sunrisesunset.io/json?lat=' + lat + '&lng=' + lng + '&date=' + date;
+    const sunriseSunsetUrl = `https://api.sunrisesunset.io/json?lat=${lat}&lng=${lng}&date=${date}`;
 
     try {
         const response = await fetch(sunriseSunsetUrl);
         const data = await response.json();
 
-        const { sunrise, sunset, dawn, dusk, day_length, solar_noon, timezone } = data.results;
-        return { sunrise, sunset, dawn, dusk, day_length, solar_noon, timezone };
+        if (data.status === 'OK') {
+            const { sunrise, sunset, dawn, dusk, day_length, solar_noon, timezone } = data.results;
+            return { sunrise, sunset, dawn, dusk, day_length, solar_noon, timezone };
+        } else {
+            throw new Error('Sunrise/sunset data not available');
+        }
     } catch (error) {
         console.error('Error fetching sunrise/sunset:', error);
         return null;
     }
 }
 
+async function getCoordinatesFromPosition(position) {
+    const { latitude, longitude } = position.coords;
+    return { lat: latitude, lng: longitude };
+}
 
-
+async function getCurrentPosition() {
+    return new Promise((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(resolve, reject);
+    });
+}
 
 async function fetchSunriseSunsetInfo() {
-    const userLocation = document.getElementById('searchInput').value;
+    try {
+        const position = await getCurrentPosition();
+        const coordinates = await getCoordinatesFromPosition(position);
 
-    const coordinates = await getCoordinates(userLocation);
-    if (coordinates) {
-        const { lat, lng } = coordinates;
-        const sunriseSunsetToday = await getSunriseSunset(lat, lng, 'today');
-        const sunriseSunsetTomorrow = await getSunriseSunset(lat, lng, 'tomorrow');
+        if (coordinates) {
+            const { lat, lng } = coordinates;
+            const sunriseSunsetToday = await getSunriseSunset(lat, lng, 'today');
+            const sunriseSunsetTomorrow = await getSunriseSunset(lat, lng, 'tomorrow');
 
-
-       if (sunriseSunsetToday) {
-            displaySunriseSunsetToday(userLocation, sunriseSunsetToday);
-            displaySunriseSunsetTomorrow(userLocation, sunriseSunsetTomorrow);
+            if (sunriseSunsetToday && sunriseSunsetTomorrow) {
+                displaySunriseSunsetToday('Your Current Location', sunriseSunsetToday);
+                displaySunriseSunsetTomorrow('Your Current Location', sunriseSunsetTomorrow);
+            } else {
+                displayError();
+            }
         } else {
             displayError();
         }
-    } else {
+    } catch (error) {
+        console.error('Error getting current position:', error);
         displayError();
     }
 }
