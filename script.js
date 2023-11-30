@@ -1,4 +1,5 @@
 //script.js
+
 async function getCoordinates(location) {
     const geocodeUrl = `https://geocode.maps.co/search?q=${location}`;
 
@@ -48,10 +49,16 @@ async function getCurrentPosition() {
     });
 }
 
-async function fetchSunriseSunsetInfo() {
+async function fetchSunriseSunsetInfo(location) {
     try {
-        const position = await getCurrentPosition();
-        const coordinates = await getCoordinatesFromPosition(position);
+        let coordinates;
+
+        if (location === 'current') {
+            const position = await getCurrentPosition();
+            coordinates = await getCoordinatesFromPosition(position);
+        } else {
+            coordinates = await getCoordinates(location);
+        }
 
         if (coordinates) {
             const { lat, lng } = coordinates;
@@ -59,8 +66,8 @@ async function fetchSunriseSunsetInfo() {
             const sunriseSunsetTomorrow = await getSunriseSunset(lat, lng, 'tomorrow');
 
             if (sunriseSunsetToday && sunriseSunsetTomorrow) {
-                displaySunriseSunsetToday('Your Current Location', sunriseSunsetToday);
-                displaySunriseSunsetTomorrow('Your Current Location', sunriseSunsetTomorrow);
+                displaySunriseSunsetToday(location, sunriseSunsetToday);
+                displaySunriseSunsetTomorrow(location, sunriseSunsetTomorrow);
             } else {
                 displayError();
             }
@@ -68,9 +75,13 @@ async function fetchSunriseSunsetInfo() {
             displayError();
         }
     } catch (error) {
-        console.error('Error getting current position:', error);
+        console.error('Error fetching data:', error);
         displayError();
     }
+}
+
+async function fetchCurrentLocationInfo() {
+    fetchSunriseSunsetInfo('current');
 }
 
 function displaySunriseSunsetToday(location, sunriseSunset) {
@@ -82,11 +93,9 @@ function displaySunriseSunsetToday(location, sunriseSunset) {
     document.getElementById('dayLengthToday').textContent = sunriseSunset.day_length;
     document.getElementById('solarNoonTimeToday').textContent = sunriseSunset.solar_noon;
     document.getElementById('timezoneToday').textContent = sunriseSunset.timezone;
-
 }
 
 function displaySunriseSunsetTomorrow(location, sunriseSunset) {
-    ///// create new html code for tomorrow and change fields here
     document.getElementById('locationNameTomorrow').textContent = location;
     document.getElementById('sunriseTimeTomorrow').textContent = sunriseSunset.sunrise;
     document.getElementById('sunsetTimeTomorrow').textContent = sunriseSunset.sunset;
@@ -95,7 +104,6 @@ function displaySunriseSunsetTomorrow(location, sunriseSunset) {
     document.getElementById('dayLengthTomorrow').textContent = sunriseSunset.day_length;
     document.getElementById('solarNoonTimeTomorrow').textContent = sunriseSunset.solar_noon;
     document.getElementById('timezoneTomorrow').textContent = sunriseSunset.timezone;
-
 }
 
 function displayError() {
