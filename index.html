@@ -37,6 +37,12 @@
       <p>Timezone: <span id="timezoneTomorrow"></span></p>
     </div>
 </div>
+
+    <div class="search-container">
+    <input type="text" id="searchInput" placeholder="Enter Location">
+    <button onclick="fetchSunriseSunsetInfo(document.getElementById('searchInput').value)">Search</button>
+    <button onclick="fetchCurrentLocationInfo()">Use Current Location</button> <!-- New button -->
+</div>
   <script src="script.js"></script>
 </body>
 </html>
