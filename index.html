@@ -1,64 +1,42 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="styleweather.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-...." crossorigin="anonymous" />
-  <title>Sunrise Sunset API Dashboard</title>
+  <meta charset="UTF-8">
+  <title>Sunset & Sunrise Dashboard</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="container">
-    <div class="parent-current">
-      <div class="current-info">
-        <div class="city-container">
-          <div class="city-temp">
-            <div class="city">
-              <h3 id="city">Choose a city or get current location</h3>
-            </div>
-            <div class="temperature">
-              <h3 id="currentTemp"></h3>
-            </div>
-          </div>
-          <div class="search">
-            <input type="text" class="search_bar" id="searchBar" placeholder="Search">
-            <button type="submit" class="searchButton" id="searchButton">Search</button>
-            <button type="submit" class="geoButton" id="geoButton">Current Location</button>
-          </div>
-        </div>
-        <div class="timezone" id="timezone">Timezone</div>
-        <div class="dashboard">
-          <div class="todayInfo" id="todayInfo">
-            <div id="today" class="today">Today</div>
-            <div class="todayData" id="todayData">
-              <div id="sunriseToday">Sunrise: </div>
-              <div id="sunsetToday">Sunset: </div>
-              <div id="dawnToday">Dawn: </div>
-              <div id="duskToday">Dusk: </div>
-              <div id="dayLengthToday">Day Length: </div>
-              <div id="solarNoonToday">Solar Noon: </div>
-            </div>
-          </div>
-          <div class="tomorrowInfo" id="tomorrowInfo">
-            <div id="tomorrow" class="tomorrow">Tomorrow</div>
-            <div class="tomorrowData" id="tomorrowData">
-              <div id="sunriseTomorrow">Sunrise: </div>
-              <div id="sunsetTomorrow">Sunset: </div>
-              <div id="dawnTomorrow">Dawn: </div>
-              <div id="duskTomorrow">Dusk: </div>
-              <div id="dayLengthTomorrow">Day Length: </div>
-              <div id="solarNoonTomorrow">Solar Noon: </div>
-            </div>
-          </div>
-        </div>
-      </div>
+    <h1>Sunset & Sunrise Dashboard</h1>
+    <div class="search-container">
+      <input type="text" id="searchInput" placeholder="Enter Location">
+      <button onclick="fetchSunriseSunsetInfo()">Search</button>
     </div>
-    <footer>
-      <p>For more information, visit:-</p>
-      <p><a class="linkClass" href="https://sunrisesunset.io/api/">Sunrise & Sunset API</a></p>
-      <p><a class="linkClass" href="https://geocode.maps.co/">Geocode Maps API</a></p>
-    </footer>
-  </div>
-  <script src="scriptweather.js"></script>
+    <!-- today add to all ids -->
+<div class="dataContainer">
+    <div class="result-container-today">
+      <h2>Today: <span id="locationNameToday"></span></h2>
+      <p>Sunrise Time: <span id="sunriseTimeToday"></span></p>
+      <p>Sunset Time: <span id="sunsetTimeToday"></span></p>
+      <p>Dawn Time: <span id="dawnTimeToday"></span></p>
+      <p>Dusk Time: <span id="duskTimeToday"></span></p>
+      <p>Day Length: <span id="dayLengthToday"></span></p>
+      <p>Solar Noon Time: <span id="solarNoonTimeToday"></span></p>
+      <p>Timezone: <span id="timezoneToday"></span></p>
+    </div>
+<!-- tomorrow add to all ids -->
+    <div class="result-container-tomorrow">
+      <h2>Tomorrow: <span id="locationNameTomorrow"></span></h2>
+      <p>Sunrise Time: <span id="sunriseTimeTomorrow"></span></p>
+      <p>Sunset Time: <span id="sunsetTimeTomorrow"></span></p>
+      <p>Dawn Time: <span id="dawnTimeTomorrow"></span></p>
+      <p>Dusk Time: <span id="duskTimeTomorrow"></span></p>
+      <p>Day Length: <span id="dayLengthTomorrow"></span></p>
+      <p>Solar Noon Time: <span id="solarNoonTimeTomorrow"></span></p>
+      <p>Timezone: <span id="timezoneTomorrow"></span></p>
+    </div>
+</div>
+  <script src="script.js"></script>
 </body>
-</html>
+</html> 
